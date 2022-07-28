@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  # archlinux:
+  #   image: archlinux:u-don
+  #   build:
+  #     context: .
+  #     dockerfile: archlinux/Dockerfile
+  #     args:
+  #       BUILD_TIME: ${BUILD_TIME:-0}
+  #       SHELL: ${SHELL}
+  #       USER: ${USER}
+  #   container_name: arch
+  #   environment:
+  #     SHELL: ${SHELL}
+  #     TERM: xterm-256color
+  #   network_mode: host
+  #   platform: linux/amd64
+  #   privileged: true
+  #   pull_policy: build
+  #   restart: unless-stopped
+  #   volumes:
+  #     - home:/home/${USER}
+
+  manjaro:
+    image: manjaro:u-don
+    build:
+      context: .
+      dockerfile: manjaro/Dockerfile
+      args:
+        BUILD_TIME: ${BUILD_TIME:-0}
+        SHELL: ${SHELL}
+        USER: ${USER}
+    container_name: manjaro
+    environment:
+      SHELL: ${SHELL}
+      TERM: xterm-256color
+    group_add: 
+      - '101'
+    network_mode: host
+    privileged: true
+    pull_policy: build
+    restart: unless-stopped
+    volumes:
+      - home:/home/${USER}
+      - ~/.ssh:/mnt/.ssh
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  home:
